@@ -19,14 +19,23 @@ st.markdown("""
 # ==========================================
 with st.sidebar:
     st.title("⚙️ 功能選單")
-    # 使用 Radio Button 讓使用者選擇角色
-    role = st.radio(
-        "請選擇您的操作角色：",
-        ["💊 調配藥師", "👨‍⚕️ 審核藥師"],
-        index=0
+    
+    # 修改頁面選擇，新增「⚡ 每日核心流程速查」
+    page = st.radio(
+        "請選擇功能單元：",
+        ["📋 作業流程查檢", "⚡ 每日核心流程速查", "📝 常用臨床備忘 (Mini-CHOP/NHL)"]
     )
+    
     st.divider()
-    st.info("切換角色後，下方的待辦進度將會重新計算。")
+    
+    # 如果在查檢表頁面，才顯示角色選擇
+    if page == "📋 作業流程查檢":
+        role = st.radio(
+            "請選擇您的操作角色：",
+            ["💊 調配藥師", "👨‍⚕️ 審核藥師"],
+            index=0
+        )
+        st.info("切換角色後，下方的待辦進度將會重新計算。")
 
 # ==========================================
 # 角色 A：調配藥師資料庫
@@ -62,7 +71,7 @@ prep_data = {
     },
     "9. 潑灑與 10. 針扎處理": {
         "步驟": ["9.1 [櫃內潑灑] 脫掉受污染衣物，穿上乾淨裝備，以紗布/吸水巾吸收藥液，75%酒精擦拭至少三遍。", "9.2 [櫃外潑灑] 穿戴防護裝備，標示區域禁止靠近，以同心圓由外向內清潔，75%酒精擦拭三遍。", "10.1 [針扎處理] 不馬上拔針，倒抽柱塞抽出藥品。拔針脫手套，擠出血液，大量流動清水沖洗傷口5分鐘。", "10.2 報備單位主管，並進系統完成安全通報(針扎事件)。"],
-        "注意事項": "若潑灑大於5mL或5gm，應立即使用抗污紙巾覆蓋。若接觸皮膚/眼睛，應以大量清水沖洗至少15分鐘後送醫。"
+        "注意事項": "若潑灑大於5mL or 5gm，應立即使用抗污紙巾覆蓋。若接觸皮膚/眼睛，應以大量清水沖洗至少15分鐘後送醫。"
     }
 }
 
@@ -80,7 +89,7 @@ audit_data = {
     },
     "3. 化療藥物之調配準備": {
         "步驟": ["3.1 化療處方審核確認後，將化療標籤貼紙同步貼在點滴及避光袋上。", "3.2 依據處方進行備藥 (His 5 化療處方調劑)。", "3.3 以籃子進行區分，門診放置紅籃，住院放置白籃，非當日的住院療程則放置於藍色籃子。", "3.4 備藥完成後，送至調配室。"],
-        "注意事項": "• 審核確認後，一式兩聯的化療標籤貼紙會自動列印。藥品調配以門診為優先。\n• 藥品及點滴皆須以條碼刷取進行系統比對並秤重。\n• 一個藥品放置一個籃子。\n• 門診化療超過 10 籃時，以處方開立順序給予號碼牌，冰箱藥給予相對應的號碼後冷藏。\n• 備藥完成後經由 PASS BOX 運送。"
+        "注意事项": "• 審核確認後，一式兩聯的化療標籤貼紙會自動列印。藥品調配以門診為優先。\n• 藥品及點滴皆須以條碼刷取進行系統比對並秤重。\n• 一個藥品放置一個籃子。\n• 門診化療超過 10 籃時，以處方開立順序給予號碼牌，冰箱藥給予相對應的號碼後冷藏。\n• 備藥完成後經由 PASS BOX 運送。"
     },
     "4. 化療調配之雙人覆核": {
         "步驟": ["4.1 確認調配過程中，抽取藥液的體積正確。"],
@@ -104,51 +113,164 @@ audit_data = {
 # 介面渲染邏輯
 # ==========================================
 
-# 根據選擇的角色切換資料庫
-if role == "💊 調配藥師":
-    st.title("🏥 藥劑科：化學藥物【調配室】作業流程")
-    current_data = prep_data
-    prefix = "prep"
-else:
-    st.title("👨‍⚕️ 藥劑科：化療藥物【審核藥師】作業流程")
-    current_data = audit_data
-    prefix = "audit"
+if page == "📋 作業流程查檢":
+    # 根據選擇的角色切換資料庫
+    if role == "💊 調配藥師":
+        st.title("🏥 藥劑科：化學藥物【調配室】作業流程")
+        current_data = prep_data
+        prefix = "prep"
+    else:
+        st.title("👨‍⚕️ 藥劑科：化療藥物【審核藥師】作業流程")
+        current_data = audit_data
+        prefix = "audit"
 
-st.markdown(f"目前身分：**{role}**，請點選工作項目開始執行。")
+    st.markdown(f"目前身分：**{role}**，請點選工作項目開始執行。")
 
-# 1. 選擇工作項目
-task_options = list(current_data.keys())
-selected_task = st.selectbox("📂 請選擇目前工作項目：", task_options, key=f"{prefix}_task_select")
+    # 1. 選擇工作項目
+    task_options = list(current_data.keys())
+    selected_task = st.selectbox("📂 請選擇目前工作項目：", task_options, key=f"{prefix}_task_select")
 
-st.divider()
+    st.divider()
 
-# 2. 顯示注意事項
-if current_data[selected_task].get("注意事項"):
-    st.info(f"**⚠️ 注意事項：**\n\n{current_data[selected_task]['注意事項']}")
+    # 2. 顯示注意事項
+    if current_data[selected_task].get("注意事項"):
+        st.info(f"**⚠️ 注意事項：**\n\n{current_data[selected_task]['注意事項']}")
 
-# 3. 渲染待辦步驟
-st.subheader(f"📋 {selected_task} - 步驟清單")
+    # 3. 渲染待辦步驟
+    st.subheader(f"📋 {selected_task} - 步驟清單")
 
-steps = current_data[selected_task]["步驟"]
-checked_count = 0
+    steps = current_data[selected_task]["步驟"]
+    checked_count = 0
 
-# 建立 Checkbox 列表
-for i, step in enumerate(steps):
-    # 使用 prefix + 角色 + 任務名稱作為 key，避免勾選狀態在切換角色時產生衝突
-    is_checked = st.checkbox(step, key=f"{prefix}_{selected_task}_step_{i}")
-    if is_checked:
-        checked_count += 1
+    # 建立 Checkbox 列表
+    for i, step in enumerate(steps):
+        is_checked = st.checkbox(step, key=f"{prefix}_{selected_task}_step_{i}")
+        if is_checked:
+            checked_count += 1
 
-# 4. 進度條顯示
-st.write("---")
-progress = int((checked_count / len(steps)) * 100) if len(steps) > 0 else 0
-st.progress(progress, text=f"此項目完成進度: {progress}%")
+    # 4. 進度條顯示
+    st.write("---")
+    progress = int((checked_count / len(steps)) * 100) if len(steps) > 0 else 0
+    st.progress(progress, text=f"此項目完成進度: {progress}%")
 
-if progress == 100:
-    st.success(f"🎉 【{selected_task}】的所有步驟已完成！")
+    if progress == 100:
+        st.success(f"🎉 【{selected_task}】的所有步驟已完成！")
 
-# 頁尾備註
-if role == "💊 調配藥師":
-    st.caption("📄 參考文件：化學藥物調配室作業規定 (GTBABC304)")
-else:
-    st.caption("📄 參考文件：化療藥物審核藥師工作規定 (GTBABC)")
+    # 頁尾備註
+    if role == "💊 調配藥師":
+        st.caption("📄 參考文件：化學藥物調配室作業規定 (GTBABC304)")
+    else:
+        st.caption("📄 參考文件：化療藥物審核藥師工作規定 (GTBABC)")
+
+# ==========================================
+# 【全新頁面】⚡ 每日核心流程速查（依據手寫/精簡圖檔優化）
+# ==========================================
+elif page == "⚡ 每日核心流程速查":
+    st.title("⚡ 每日核心流程精簡速查 (備忘口訣)")
+    st.markdown("本頁面依據臨床實務核心步驟編製，供每日開關機與常態調配快速核對。")
+    st.divider()
+    
+    # 將12個步驟區分為開工前、調配中、收工後，更具結構化
+    col_pre, col_mid, col_post = st.tabs(["🌅 1. 開工與前置", "🧪 2. 審核與抽藥", "🌌 3. 發藥與收尾"])
+    
+    with col_pre:
+        st.subheader("🌅 開工前置核心")
+        quick_steps_1 = [
+            "1. 關閉牆上 UV 燈",
+            "2. 打開審核電腦及系統開機",
+            "3. 對磅秤按下 break (校正/歸零確認)",
+            "4. 打開 HIS 5 系統登入並打標籤"
+        ]
+        q_count_1 = 0
+        for i, step in enumerate(quick_steps_1):
+            if st.checkbox(step, key=f"quick_s1_{i}"):
+                q_count_1 += 1
+        st.progress(int((q_count_1/len(quick_steps_1))*100), text=f"前置完成度: {int((q_count_1/len(quick_steps_1))*100)}%")
+
+    with col_mid:
+        st.subheader("🧪 審核與抽藥核心")
+        quick_steps_2 = [
+            "5. 審核藥物 OK 後列印確認",
+            "6. 進入抽藥（嚴禁交叉，確認剩餘量/空瓶與標籤）",
+            "7. 灑酒精關台（調配前後檯面全面消毒）",
+            "8. 大清掃並且登錄溫濕度、壓差與生物操作台數據"
+        ]
+        q_count_2 = 0
+        for i, step in enumerate(quick_steps_2):
+            if st.checkbox(step, key=f"quick_s2_{i}"):
+                q_count_2 += 1
+        st.progress(int((q_count_2/len(quick_steps_2))*100), text=f"調配完成度: {int((q_count_2/len(quick_steps_2))*100)}%")
+
+    with col_post:
+        st.subheader("🌌 發藥與收尾核對")
+        quick_steps_3 = [
+            "9. 發藥、封包、雙人覆核與系統派單傳送",
+            "10. 拆漏液機管線至廢棄物處理",
+            "11. 拿下冰箱上的號碼牌（對應冷藏藥品核發）",
+            "12. 收拾、關機關燈、開啟下班 UV 燈"
+        ]
+        q_count_3 = 0
+        for i, step in enumerate(quick_steps_3):
+            if st.checkbox(step, key=f"quick_s3_{i}"):
+                q_count_3 += 1
+        st.progress(int((q_count_3/len(quick_steps_3))*100), text=f"收尾完成度: {int((q_count_3/len(quick_steps_3))*100)}%")
+        
+        if (q_count_1 + q_count_2 + q_count_3) == 12:
+            st.balloons()
+            st.success("🎉 今日核心流程皆已順利執行完畢！藥師辛苦了！")
+
+# ==========================================
+# 角色 C：常用臨床備忘 (Mini-CHOP/NHL)
+# ==========================================
+elif page == "📝 常用臨床備忘 (Mini-CHOP/NHL)":
+    st.title("📝 臨床藥學備忘：Non-Hodgkin Lymphoma & R-mini-CHOP")
+    st.markdown("提供臨床藥師於審核處方或調配時的疾病與處方快速指引。")
+    
+    st.divider()
+    
+    # 使用 Tabs 分頁顯示不同臨床知識
+    tab1, tab2 = st.tabs(["💡 NHL 疾病分類", "🧪 R-mini-CHOP 處方解析"])
+    
+    with tab1:
+        st.subheader("非何杰金氏淋巴瘤 (NHL) 大方向分類")
+        st.info("WHO 分類超過 60 種亞型，臨床主要依細胞來源與侵襲性區分：")
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown("""
+            **1. 依細胞來源分類**
+            *   **B 細胞淋巴瘤** (約占 85%，如 DLBCL、Follicular)
+            *   **T 細胞 / NK 細胞淋巴瘤** (約占 15%)
+            """)
+        with col2:
+            st.markdown("""
+            **2. 依生長速度 (侵襲性) 分類**
+            *   **低惡性度 / 緩慢型 (Indolent)**：進展慢，以年為單位。
+            *   **高惡性度 / 侵襲型 (Aggressive)**：進展快，需立即治療（如 DLBCL）。
+            """)
+            
+    with tab2:
+        st.subheader("R-mini-CHOP 處方組成與臨床數據")
+        
+        # 藥物組成表格
+        st.markdown("**💊 藥物組成與減量原則：**")
+        st.dataframe([
+            {"藥物簡稱": "R (Rituximab)", "藥品名稱": "莫須瘤單株抗體標靶", "調配/減量註記": "維持標準劑量，一般不減量"},
+            {"藥物簡稱": "C (Cyclophosphamide)", "藥品名稱": "癌得星化療藥", "調配/減量註記": "等比例減量 (約減 30~50%)"},
+            {"藥物簡稱": "H (Doxorubicin)", "藥品名稱": "小紅莓化療藥", "調配/減量註記": "等比例減量，注意心臟毒性"},
+            {"藥物簡稱": "O (Vincristine)", "藥品名稱": "新長春新鹼化療藥", "調配/減量註記": "等比例減量，常設 1~2mg 上限"},
+            {"藥物簡稱": "P (Prednisolone)", "藥品名稱": "口服/針劑類固醇", "調配/減量註記": "依醫囑等比例減量或調整"},
+        ], use_container_width=True)
+        
+        st.markdown("""
+        **👴 核心適用族群：**
+        *   **80 歲以上**高齡新診斷 DLBCL 患者。
+        *   體質虛弱 (Frail)、共病症多（如心臟疾病、腎功能不全）無法耐受標準 R-CHOP 劑量者。
+        
+        **📊 臨床指標數據參考 (GELA LNH03-7B 試驗)：**
+        *   **整體反應率 (ORR)**：約 **73% ~ 74%** (約 7 成多)
+        *   **兩年整體存活率 (2-year OS)**：約 **59%** (約 6 成)
+        *   **兩年無疾病惡化存活率 (2-year PFS)**：約 **47%** (近 5 成)
+        """)
+        
+    st.caption("📄 臨床備忘內容僅供學術與作業參考，實際處方劑量請遵照院內癌症治療計畫書規範。")
