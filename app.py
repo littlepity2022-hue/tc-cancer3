@@ -166,6 +166,7 @@ elif page == "📌 平日審核藥師工作事項":
     st.divider()
 
     with st.expander("☀️ 每日完成事項", expanded=True):
+        st.checkbox("0. 打開所有電腦與機器和生物操作櫃、關閉所有UV燈")
         st.checkbox("1. 登記壓差(審核藥師)", key="chk_d_1")
         st.checkbox("2. 統計每日病人數於月曆 (含療程數量及當日標籤列印人數確認)", key="chk_d_2")
         st.checkbox("3. 統計各時段處方量、登記於 Excel", key="chk_d_3")
