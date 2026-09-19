@@ -166,6 +166,8 @@ elif page == "📌 平日審核藥師工作事項":
     st.divider()
 
     with st.expander("☀️ 每日完成事項", expanded=True):
+        st.checkbox("0. 星期一早上裝新的漏液體管子並漏液3次、1次100cc")
+        st.caption("Baxa轉接管組、T型延長管與輸液管轉接頭在同一箱子")
         st.checkbox("1. 關閉牆上UV燈(非生物操作台的室外一盞、室內一盞)")
         st.checkbox("2.打開審核電腦和刷藥物電腦、打開生物操作台兩台")
         st.checkbox("3.對磅秤按下break 看到ready字樣按下print")
