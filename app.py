@@ -39,40 +39,41 @@ with st.sidebar:
     # 審核藥師每日/每月工作 Checklist
     # --------------------------------------------------
     st.divider()
-    st.subheader("📌 審核藥師 工作 Checklist")
 
-    with st.expander("☀️ 每日完成事項"):
-        st.checkbox("1. 登記壓差(審核藥師)", key="chk_d_1")
-        st.checkbox("2. 統計每日病人數於月曆 (含療程數量及當日標籤列印人數確認)", key="chk_d_2")
-        st.checkbox("3. 統計各時段處方量、登記於 Excel", key="chk_d_3")
-        st.checkbox("4. 匯出當日工作量 Excel (另存新檔)", key="chk_d_4")
-        st.caption("↳ HIS=>藥局管理=>共用服務=>報表=>化療業務量=>輸出 Excel 並另存")
-        st.checkbox("5. 補充點滴", key="chk_d_5")
-        st.checkbox("6. 倒垃圾", key="chk_d_6")
-        st.checkbox("7. 關電腦、電子磅秤、漏液機、監視器螢幕", key="chk_d_7")
-        st.checkbox("8. 撕新一層保潔墊、關傳送電腦/電燈、開紫消燈", key="chk_d_8")
+    # 外層大折疊選單：平日審核藥師工作事項
+    with st.expander("📌 平日審核藥師工作事項"):
+        with st.expander("☀️ 每日完成事項"):
+            st.checkbox("1. 登記壓差(審核藥師)", key="chk_d_1")
+            st.checkbox("2. 統計每日病人數於月曆 (含療程數量及當日標籤列印人數確認)", key="chk_d_2")
+            st.checkbox("3. 統計各時段處方量、登記於 Excel", key="chk_d_3")
+            st.checkbox("4. 匯出當日工作量 Excel (另存新檔)", key="chk_d_4")
+            st.caption("↳ HIS=>藥局管理=>共用服務=>報表=>化療業務量=>輸出 Excel 並另存")
+            st.checkbox("5. 補充點滴", key="chk_d_5")
+            st.checkbox("6. 倒垃圾", key="chk_d_6")
+            st.checkbox("7. 關電腦、電子磅秤、漏液機、監視器螢幕", key="chk_d_7")
+            st.checkbox("8. 撕新一層保潔墊、關傳送電腦/電燈、開紫消燈", key="chk_d_8")
 
-    with st.expander("📅 每月完成事項 (電子檔 - 3號前交宛怡)"):
-        st.checkbox("115年化療處方near miss.xls", key="chk_m_e_1")
-        st.checkbox("115年化療各時段處方量統計.xls", key="chk_m_e_2")
-        st.checkbox("1150901-1150931業務量.xls", key="chk_m_e_3")
-        st.checkbox("11509化療調配支援紀錄表.pdf (紙本帶去臨床辦公室掃描)", key="chk_m_e_4")
-        st.checkbox("115年第四季(10-12)化療室統計資料.pdf", key="chk_m_e_5")
-        st.checkbox("115年化療調劑總筆數.xls", key="chk_m_e_6")
+        with st.expander("📅 每月完成事項 (電子檔 - 3號前交宛怡)"):
+            st.checkbox("115年化療處方near miss.xls", key="chk_m_e_1")
+            st.checkbox("115年化療各時段處方量統計.xls", key="chk_m_e_2")
+            st.checkbox("1150901-1150931業務量.xls", key="chk_m_e_3")
+            st.checkbox("11509化療調配支援紀錄表.pdf (紙本帶去臨床辦公室掃描)", key="chk_m_e_4")
+            st.checkbox("115年第四季(10-12)化療室統計資料.pdf", key="chk_m_e_5")
+            st.checkbox("115年化療調劑總筆數.xls", key="chk_m_e_6")
 
-    with st.expander("📄 每月完成事項 (紙本 - 月底最後一天交宛怡)"):
-        st.checkbox("1. 溫濕度記錄表、壓差記錄表", key="chk_m_p_1")
-        st.checkbox("2. 保養卡*2 (生物操作櫃*2、洗眼機、自動藥液分裝機)", key="chk_m_p_2")
-        st.checkbox("3. 冰箱溫度異常警鳴測試表", key="chk_m_p_3")
-        st.checkbox("4. 安全衛生自動檢查表", key="chk_m_p_4")
-        st.checkbox("5. 交班本", key="chk_m_p_5")
-        st.checkbox("6. 盤點表、盤點報告、大德捐 (最晚最後一週週五交出)", key="chk_m_p_6")
-        st.checkbox("7. PCA 報廢單 (to 雅蓁)", key="chk_m_p_7")
+        with st.expander("📄 每月完成事項 (紙本 - 月底最後一天交宛怡)"):
+            st.checkbox("1. 溫濕度記錄表、壓差記錄表", key="chk_m_p_1")
+            st.checkbox("2. 保養卡*2 (生物操作櫃*2、洗眼機、自動藥液分裝機)", key="chk_m_p_2")
+            st.checkbox("3. 冰箱溫度異常警鳴測試表", key="chk_m_p_3")
+            st.checkbox("4. 安全衛生自動檢查表", key="chk_m_p_4")
+            st.checkbox("5. 交班本", key="chk_m_p_5")
+            st.checkbox("6. 盤點表、盤點報告、大德捐 (最晚最後一週週五交出)", key="chk_m_p_6")
+            st.checkbox("7. PCA 報廢單 (to 雅蓁)", key="chk_m_p_7")
 
-    with st.expander("🔄 每月例行公事"):
-        st.checkbox("1. 處方箋、注射卡歸檔滿了箱交藥庫", key="chk_m_r_1")
-        st.checkbox("2. 更新下個月需用表單", key="chk_m_r_2")
-        st.checkbox("3. 每月完成 5S 及效期查核 (僅審核藥師執行)", key="chk_m_r_3")
+        with st.expander("🔄 每月例行公事"):
+            st.checkbox("1. 處方箋、注射卡歸檔滿了箱交藥庫", key="chk_m_r_1")
+            st.checkbox("2. 更新下個月需用表單", key="chk_m_r_2")
+            st.checkbox("3. 每月完成 5S 及效期查核 (僅審核藥師執行)", key="chk_m_r_3")
 
 # ==========================================
 # 角色 A：調配藥師資料庫
