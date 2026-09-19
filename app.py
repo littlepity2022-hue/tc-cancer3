@@ -171,7 +171,7 @@ elif page == "📌 平日審核藥師工作事項":
         st.checkbox("0000.對磅秤按下break 看到ready字樣按下print")
         st.checkbox("00000.打開his 登入打開發藥 多開一個給調配藥師") 
         st.checkbox("000000.審核藥物 ok後準備bag 漏液 備藥完丟pass box") 
-        st.caption("↳標籤紙大小必須修剪500cc以上不用，red[避光、冷藏、不可使用過濾器需紅筆圈選]需red[紅筆]圈選")            
+        st.caption("↳標籤紙大小必須修剪500cc以上不用，:red[避光]、:red[冷藏]、:red[不可使用過濾器] 需紅筆圈選")            
         st.checkbox("1. 登記壓差(審核藥師)", key="chk_d_1")
         st.checkbox("2. 統計每日病人數於月曆 (含療程數量及當日標籤列印人數確認)", key="chk_d_2")
         st.checkbox("3. 統計各時段處方量、登記於 Excel", key="chk_d_3")
