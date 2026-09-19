@@ -168,7 +168,7 @@ elif page == "📌 平日審核藥師工作事項":
     with st.expander("☀️ 每日完成事項", expanded=True):
         st.checkbox("0. 關閉牆上UV燈(非生物操作台的室外一盞、室內一盞)")
         st.checkbox("00.打開審核電腦和刷藥物電腦、打開生物操作台兩台")
-        st.checkbox("0000.對磅秤按下break 看到ready字樣按下print"")
+        st.checkbox("0000.對磅秤按下break 看到ready字樣按下print")
         st.checkbox("00000.打開his 登入打開發藥 多開一個給調配藥師") 
         st.checkbox("000000.審核藥物 ok後準備bag 漏液 備藥完丟pass box") 
         st.caption("↳標籤紙大小必須修剪500cc以上不用，避光、冷藏、不可使用過濾器需紅筆圈選")            
