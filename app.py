@@ -170,7 +170,7 @@ elif page == "📌 平日審核藥師工作事項":
         st.checkbox("2. 統計每日病人數於月曆 (含療程數量及當日標籤列印人數確認)", key="chk_d_2")
         st.checkbox("3. 統計各時段處方量、登記於 Excel", key="chk_d_3")
         st.checkbox("4. 匯出當日工作量 Excel (另存新檔)", key="chk_d_4")
-        st.caption("↳ HIS=>藥局管理=>共用服務=>報表=>化療業務量=>輸出 Excel 並另存")
+        st.caption("↳ HIS=>藥局管理=>共用服務=>報表=>化療業務量=>輸出 Excel 並另存於=>每月所需=>工作量=>115年=>當月")
         st.checkbox("5. 補充點滴", key="chk_d_5")
         st.checkbox("6. 倒垃圾", key="chk_d_6")
         st.checkbox("7. 關電腦、電子磅秤、漏液機、監視器螢幕", key="chk_d_7")
