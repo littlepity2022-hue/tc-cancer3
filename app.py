@@ -166,7 +166,12 @@ elif page == "📌 平日審核藥師工作事項":
     st.divider()
 
     with st.expander("☀️ 每日完成事項", expanded=True):
-        st.checkbox("0. 打開所有電腦與機器和生物操作櫃、關閉所有UV燈")
+        st.checkbox("0. 關閉牆上UV燈(非生物操作台的室外一盞、室內一盞)")
+        st.checkbox("00.打開審核電腦和刷藥物電腦、打開生物操作台兩台")
+        st.checkbox("0000.對磅秤按下break 看到ready字樣按下print"")
+        st.checkbox("00000.打開his 登入打開發藥 多開一個給調配藥師") 
+        st.checkbox("000000.審核藥物 ok後準備bag 漏液 備藥完丟pass box") 
+        st.caption("↳標籤紙大小必須修剪500cc以上不用，避光、冷藏、不可使用過濾器需紅筆圈選")            
         st.checkbox("1. 登記壓差(審核藥師)", key="chk_d_1")
         st.checkbox("2. 統計每日病人數於月曆 (含療程數量及當日標籤列印人數確認)", key="chk_d_2")
         st.checkbox("3. 統計各時段處方量、登記於 Excel", key="chk_d_3")
@@ -208,7 +213,7 @@ elif page == "⚡ 週六單人流程核心":
 
     sat_steps = [
         "1 關閉牆上UV燈(非生物操作台的室外一盞、室內一盞)",
-        "2 打開審核電腦刷調劑電腦",
+        "2 打開審核電腦和刷藥物電腦",
         "3 對磅秤按下break 看到ready字樣按下print",
         "4 打開his 登入打開發藥 多開一個給調配藥師",
         "5 審核藥物 ok後準備bag 漏液 備藥後打給4027請線上主管指派人員核對",
